@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Encode and decode strings to/from base64">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <title>Code64</title>
+</head>
+
+<body>
+  <main class="app-container">
+    <header>
+      <h1>Code64</h1>
+      <p>Encode and decode strings to/from base64</p>
+    </header>
+    <section class="input__section">
+      <form class="input__form">
+        <label for="input-field">
+          <div class="input__config-container">
+            <span>Put your string here:</span>
+            <div class="switch-container">
+              <div class="flipswitch">
+                <input type="checkbox" name="flipswitch" class="flipswitch-cb" id="fs">
+                <label class="flipswitch-label" for="fs">
+                  <div class="flipswitch-inner"></div>
+                  <div class="flipswitch-switch"></div>
+                </label>
+              </div>
+              <svg width="26" height="26" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="decode-img">
+                <path fill="currentColor" fill-rule="evenodd"
+                  d="M6.75 8a5.25 5.25 0 0 1 10.335-1.313a.75.75 0 0 0 1.452-.374A6.75 6.75 0 0 0 5.25 8v1.303c-.227.016-.44.036-.642.064c-.9.12-1.658.38-2.26.981c-.602.602-.86 1.36-.981 2.26c-.117.867-.117 1.97-.117 3.337v.11c0 1.367 0 2.47.117 3.337c.12.9.38 1.658.981 2.26c.602.602 1.36.86 2.26.982c.867.116 1.97.116 3.337.116h8.11c1.367 0 2.47 0 3.337-.116c.9-.122 1.658-.38 2.26-.982c.602-.602.86-1.36.982-2.26c.116-.867.116-1.97.116-3.337v-.11c0-1.367 0-2.47-.116-3.337c-.122-.9-.38-1.658-.982-2.26c-.602-.602-1.36-.86-2.26-.981c-.867-.117-1.97-.117-3.337-.117h-8.11c-.423 0-.821 0-1.195.003V8Zm-3.341 3.409c.277-.277.665-.457 1.4-.556c.754-.101 1.756-.103 3.191-.103h8c1.435 0 2.436.002 3.192.103c.734.099 1.122.28 1.399.556c.277.277.457.665.556 1.4c.101.755.103 1.756.103 3.191c0 1.435-.002 2.436-.103 3.192c-.099.734-.28 1.122-.556 1.399c-.277.277-.665.457-1.4.556c-.755.101-1.756.103-3.191.103H8c-1.435 0-2.437-.002-3.192-.103c-.734-.099-1.122-.28-1.399-.556c-.277-.277-.457-.665-.556-1.4c-.101-.755-.103-1.756-.103-3.191c0-1.435.002-2.437.103-3.192c.099-.734.28-1.122.556-1.399Z"
+                  clip-rule="evenodd" />
+              </svg>
+              <svg width="26" height="26" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                class="encode-img hidden">
+                <path fill="currentColor" fill-rule="evenodd"
+                  d="M5.25 9.303V8a6.75 6.75 0 0 1 13.5 0v1.303c.227.016.44.036.642.064c.9.12 1.658.38 2.26.981c.602.602.86 1.36.982 2.26c.116.867.116 1.97.116 3.337v.11c0 1.367 0 2.47-.116 3.337c-.122.9-.38 1.658-.982 2.26c-.602.602-1.36.86-2.26.982c-.867.116-1.97.116-3.337.116h-8.11c-1.367 0-2.47 0-3.337-.116c-.9-.122-1.658-.38-2.26-.982c-.602-.602-.86-1.36-.981-2.26c-.117-.867-.117-1.97-.117-3.337v-.11c0-1.367 0-2.47.117-3.337c.12-.9.38-1.658.981-2.26c.602-.602 1.36-.86 2.26-.981a9.55 9.55 0 0 1 .642-.064ZM6.75 8a5.25 5.25 0 0 1 10.5 0v1.253c-.373-.003-.772-.003-1.195-.003h-8.11c-.423 0-.821 0-1.195.003V8Zm-3.341 3.409c.277-.277.665-.457 1.4-.556c.754-.101 1.756-.103 3.191-.103h8c1.435 0 2.436.002 3.192.103c.734.099 1.122.28 1.399.556c.277.277.457.665.556 1.4c.101.755.103 1.756.103 3.191c0 1.435-.002 2.436-.103 3.192c-.099.734-.28 1.122-.556 1.399c-.277.277-.665.457-1.4.556c-.755.101-1.756.103-3.191.103H8c-1.435 0-2.437-.002-3.192-.103c-.734-.099-1.122-.28-1.399-.556c-.277-.277-.457-.665-.556-1.4c-.101-.755-.103-1.756-.103-3.191c0-1.435.002-2.437.103-3.192c.099-.734.28-1.122.556-1.399Z"
+                  clip-rule="evenodd" />
+              </svg>
+            </div>
+          </div>
+          <input type="text" name="input-field" id="input-field" class="input-field" placeholder="aGVsbG9Xb3JsZCE=" value="">
+        </label>
+        <p class="error--msg hidden" id="error-msg"></p>
+        <button type="submit" class="submit-btn">Decode</button>
+        <div class="loader-container hidden">
+          <span class="loader"></span>
+        </div>
+      </form>
+    </section>
+    <section class="output-section">
+      <h2>Output:</h2>
+      <output class="output-field">
+        <input type="text" id="result" placeholder="helloWorld!" value="" disabled>
+        <div class="tooltip">
+          <span class="copy-clipboard">
+            <span class="tooltip-text" id="tooltip">
+              Copy to clipboard
+            </span>
+            <svg width="26" height="26" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <g fill="none" stroke="currentColor" stroke-width="1.5">
+                <path
+                  d="M16 4.002c2.175.012 3.353.109 4.121.877C21 5.758 21 7.172 21 10v6c0 2.829 0 4.243-.879 5.122C19.243 22 17.828 22 15 22H9c-2.828 0-4.243 0-5.121-.878C3 20.242 3 18.829 3 16v-6c0-2.828 0-4.242.879-5.121c.768-.768 1.946-.865 4.121-.877" />
+                <path stroke-linecap="round" d="M8 14h8m-9-3.5h10m-8 7h6" />
+                <path
+                  d="M8 3.5A1.5 1.5 0 0 1 9.5 2h5A1.5 1.5 0 0 1 16 3.5v1A1.5 1.5 0 0 1 14.5 6h-5A1.5 1.5 0 0 1 8 4.5v-1Z" />
+              </g>
+            </svg>
+          </span>
+        </div>
+      </output>
+    </section>
+    <footer>
+      <p>Created by <span class="creator">Edward Rodríguez</span> - <span id="current-year"></span></p>
+    </footer>
+  </main>
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>
