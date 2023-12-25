@@ -1,6 +1,6 @@
-import { setButtonName, setEventIcon } from "./js/switch"
-import { copyToClipboard, outputMsg } from "./js/copyToClipboard"
-import { submitForm } from "./js/formValidator"
+import { setButtonName, setEventIcon } from "./js/switch.js"
+import { copyToClipboard, outputMsg } from "./js/copyToClipboard.js"
+import { submitForm } from "./js/formValidator.js"
 
 document.addEventListener('DOMContentLoaded', () => {
   const currentYearElem = document.querySelector('#current-year'),
