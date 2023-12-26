@@ -1,26 +1,50 @@
-import { setButtonName, setEventIcon } from "./js/switch.js"
-import { copyToClipboard, outputMsg } from "./js/copyToClipboard.js"
-import { submitForm } from "./js/formValidator.js"
+import { toggleMenu, selectMenuOpt } from './js/menu.js'
+import { submitForm } from './js/formValidator.js'
+import { copyToClipboard, outputMsg } from './js/copyToClipboard.js'
+import { changePlaceholder } from './js/utils.js'
+
+const toggleBtn = document.querySelector('.toggle-menu'),
+      navItems = document.querySelectorAll('.nav__item'),
+      options = document.querySelectorAll('input[type="radio"]'),
+      forms = document.querySelectorAll('form'),
+      tooltips = document.querySelectorAll('.tooltip'),
+      currentYearText = document.querySelector('#current-year')
 
 document.addEventListener('DOMContentLoaded', () => {
-  const currentYearElem = document.querySelector('#current-year'),
-        switchOption = document.querySelector('#fs'),
-        copyBtn = document.querySelector('.copy-clipboard'),
-        form = document.querySelector('.input__form'),
-        currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear()
 
-  currentYearElem.textContent = currentYear
-
-  switchOption.addEventListener('change', function() {
-    setButtonName(this.checked)
-    setEventIcon(this.checked)
+  toggleBtn.addEventListener('click', () => {
+    toggleMenu()
   })
 
-  copyBtn.addEventListener('click', copyToClipboard)
-  copyBtn.addEventListener('mouseout', outputMsg)
-
-  form.addEventListener('submit', function(event) {
-    event.preventDefault()
-    submitForm(this)
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      selectMenuOpt(item.classList)
+    })
   })
+
+  options.forEach(option => {
+    option.addEventListener('click', function () {
+      changePlaceholder(this)
+    })
+  })
+
+  forms.forEach(form => {
+    form.addEventListener('submit', function (event) {
+      event.preventDefault()
+      submitForm(this)
+    })
+  })
+
+  tooltips.forEach(tooltip => {
+    tooltip.addEventListener('click', function () {
+      copyToClipboard(this)
+    })
+
+    tooltip.addEventListener('mouseout', function () {
+      outputMsg(this)
+    })
+  })
+
+  currentYearText.textContent = currentYear
 })

@@ -1,37 +1,35 @@
-export function submitForm(form) {
-    let error = '',
-    endpoint = ''
+import { generateAlert } from './utils.js'
 
-    const errorText = document.querySelector('#error-msg'),
-          inputText = document.querySelector('.input-field'),
-          submitBtn = document.querySelector('.submit-btn'),
-          loader = document.querySelector('.loader-container'),
-          formData = new FormData(form),
-          inputVal = formData.get('input-field'),
-          encodeOption = formData.get('flipswitch'),
-          output = document.querySelector('#result')
+export const submitForm = async (form) => {
+    let error = '', endpoint = '', generatedAlert
 
-    if (inputVal == '') {
-        error = 'Empty strings are not allowed'
-    } else if (inputVal.startsWith(' ')) {
-        error = 'No blank spaces allowed'
+    const formData = new FormData(form),
+        data = Object.fromEntries(formData),
+        keys = Object.keys(data),
+        identifier = keys.slice(keys.length - 1).pop().split('-').pop(),
+        inputVal = data[keys[keys.length - 1]],
+        submitBtn = form.querySelector('button[type="submit"]'),
+        loader = form.querySelector('.loader-container'),
+        output = form.querySelector(`#response-${identifier}`)
+
+    if (keys.length > 1 && 'option' in data) {
+        endpoint = `api/${data.option}/${identifier}`
+    } else {
+        endpoint = `api/encode/${identifier}`
     }
 
-    if (error != '') {
-        errorText.textContent = error
+    if (inputVal.trim() === '') {
+        error = 'Empty strings are not allowed'
+    } else if (inputVal.startsWith(' ')) {
+        error = 'No heading blank spaces allowed'
+    }
 
-        if (errorText.classList.contains('hidden')) {
-            errorText.classList.remove('hidden')
-        }
-        
-        if (!inputText.classList.contains('error')) {
-            inputText.classList.add('error')
-        }
+    if (error !== '') {
+        generatedAlert = generateAlert(error)
 
-        setTimeout(() => {
-            errorText.classList.add('hidden')
-            inputText.classList.remove('error')
-        }, 2000)
+        generatedAlert.classList.add('show', 'showAlert')
+        document.body.prepend(generatedAlert)
+        generatedAlert.showModal()
 
         return
     }
@@ -51,18 +49,37 @@ export function submitForm(form) {
         body: JSON.stringify(params)
     }
 
-    if (encodeOption) {
-        endpoint = 'api/encode'
-    } else {
-        endpoint = 'api/decode'
+    let response
+
+    try {
+        response = await fetch(`https://encoderdecoder-1-b6510573.deta.app/${endpoint}`, requestOptions)
+    } catch (error) {
+        generatedAlert = generateAlert(error)
+
+        generatedAlert.classList.add('show', 'showAlert')
+        document.body.prepend(generatedAlert)
+        generatedAlert.showModal()
+
+        return
     }
 
-    fetch(`https://encoderdecoder-1-b6510573.deta.app/${endpoint}`, requestOptions)
-    .then(response => response.json())
-    .then(result => {
-        output.value = result.outputVal
-        submitBtn.classList.remove('hidden')
-        loader.classList.add('hidden')
-    })
-    .catch(err => console.error(err))
+    if (!response.ok) {
+        generatedAlert = generateAlert(response.statusText)
+
+        generatedAlert.classList.add('show', 'showAlert')
+        document.body.prepend(generatedAlert)
+        generatedAlert.showModal()
+
+        return
+    }
+
+    const result = await response.json()
+
+    if (result.msg === 'error') {}
+
+    console.log(result)
+
+    output.textContent = result.outputVal
+    submitBtn.classList.remove('hidden')
+    loader.classList.add('hidden')
 }

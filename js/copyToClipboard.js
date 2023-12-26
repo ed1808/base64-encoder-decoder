@@ -1,15 +1,15 @@
-export function copyToClipboard() {
-    const resultText = document.querySelector('#result'),
-          tooltip = document.querySelector('#tooltip')
-    resultText.select()
-    resultText.setSelectionRange(0, 99999)
-    navigator.clipboard.writeText(resultText.value)
+export const copyToClipboard = (parentElem) => {
+  const identifier = parentElem.querySelector('.tooltip-text').id.split('-').pop(),
+    resultText = document.querySelector(`#response-${identifier}`),
+    tooltip = parentElem.querySelector('.tooltip-text')
 
-    tooltip.textContent = "Copied!"
+  navigator.clipboard.writeText(resultText.textContent)
+
+  tooltip.textContent = 'Copied to clipboard!'
 }
 
-export function outputMsg() {
-    const tooltip = document.querySelector('#tooltip')
+export const outputMsg = (parentElem) => {
+  const tooltip = parentElem.querySelector('.tooltip-text')
 
-    tooltip.textContent = 'Copy to clipboard'
+  tooltip.textContent = 'Copy to clipboard'
 }
