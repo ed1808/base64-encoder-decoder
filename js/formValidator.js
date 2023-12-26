@@ -60,6 +60,9 @@ export const submitForm = async (form) => {
         document.body.prepend(generatedAlert)
         generatedAlert.showModal()
 
+        submitBtn.classList.remove('hidden')
+        loader.classList.add('hidden')
+
         return
     }
 
@@ -69,6 +72,9 @@ export const submitForm = async (form) => {
         generatedAlert.classList.add('show', 'showAlert')
         document.body.prepend(generatedAlert)
         generatedAlert.showModal()
+
+        submitBtn.classList.remove('hidden')
+        loader.classList.add('hidden')
 
         return
     }
