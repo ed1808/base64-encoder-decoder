@@ -18,7 +18,7 @@ export const submitForm = async (form) => {
         endpoint = `api/encode/${identifier}`
     }
 
-    if (inputVal.trim() === '') {
+    if (inputVal === '') {
         error = 'Empty strings are not allowed'
     } else if (inputVal.startsWith(' ')) {
         error = 'No heading blank spaces allowed'
@@ -88,7 +88,7 @@ export const submitForm = async (form) => {
     if (!output.classList.contains('active')) {
         output.classList.add('active')
     }
-    
+
     submitBtn.classList.remove('hidden')
     loader.classList.add('hidden')
 }
