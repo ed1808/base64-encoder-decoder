@@ -10,7 +10,7 @@ export const submitForm = async (form) => {
         inputVal = data[keys[keys.length - 1]],
         submitBtn = form.querySelector('button[type="submit"]'),
         loader = form.querySelector('.loader-container'),
-        output = form.querySelector(`#response-${identifier}`)
+        output = document.querySelector(`#response-${identifier}`)
 
     if (keys.length > 1 && 'option' in data) {
         endpoint = `api/${data.option}/${identifier}`
@@ -83,9 +83,8 @@ export const submitForm = async (form) => {
 
     if (result.msg === 'error') {}
 
-    console.log(result)
-
-    output.textContent = result.outputVal
+    output.textContent = result.data.outputVal
+    output.classList.add('active')
     submitBtn.classList.remove('hidden')
     loader.classList.add('hidden')
 }
