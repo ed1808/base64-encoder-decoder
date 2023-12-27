@@ -40,4 +40,8 @@ export const changePlaceholder = (elem) => {
     input.placeholder = 'SGVsbG8gV29ybGQh'
     output.textContent = 'Hello World!'
   }
+
+  if (output.classList.contains('active')) {
+    output.classList.remove('active')
+  }
 }

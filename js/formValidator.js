@@ -84,7 +84,11 @@ export const submitForm = async (form) => {
     if (result.msg === 'error') {}
 
     output.textContent = result.data.outputVal
-    output.classList.add('active')
+
+    if (!output.classList.contains('active')) {
+        output.classList.add('active')
+    }
+    
     submitBtn.classList.remove('hidden')
     loader.classList.add('hidden')
 }
