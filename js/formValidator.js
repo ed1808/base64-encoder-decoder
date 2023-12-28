@@ -81,7 +81,18 @@ export const submitForm = async (form) => {
 
     const result = await response.json()
 
-    if (result.msg === 'error') {}
+    if (result.msg === 'error') {
+        generatedAlert = generateAlert(result.data)
+
+        generatedAlert.classList.add('show', 'showAlert')
+        document.body.prepend(generatedAlert)
+        generatedAlert.showModal()
+
+        submitBtn.classList.remove('hidden')
+        loader.classList.add('hidden')
+
+        return
+    }
 
     output.textContent = result.data.outputVal
 
